@@ -8,6 +8,7 @@ services:
       - /data/atlassian/bitbucket:/var/atlassian/bitbucket
     ports:
       - '7990:7990'
+      - '7999:7999'
     environment:
       - 'BITBUCKET_PROXY_NAME='
       - 'BITBUCKET_PROXY_PORT='
