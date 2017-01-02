@@ -1,5 +1,5 @@
-FROM blacklabelops/java:openjre8
-MAINTAINER Steffen Bleul <sbl@blacklabelops.com>
+FROM asos/openjdk8
+MAINTAINER Louran <louran@asosgaming.com>
 
 ARG BITBUCKET_VERSION=4.7.1
 # permissions
@@ -50,21 +50,6 @@ RUN export MYSQL_DRIVER_VERSION=5.1.38 && \
     rm -f ${BITBUCKET_INSTALL}/lib/postgresql-*.jar                                                                &&  \
     wget -O ${BITBUCKET_INSTALL}/lib/postgresql-${POSTGRESQL_DRIVER_VERSION}.jar                                       \
       https://jdbc.postgresql.org/download/postgresql-${POSTGRESQL_DRIVER_VERSION}.jar && \
-    # Adding letsencrypt-ca to truststore
-    # Adding letsencrypt-ca to truststore
-    export KEYSTORE=$JAVA_HOME/jre/lib/security/cacerts && \
-    wget -P /tmp/ https://letsencrypt.org/certs/letsencryptauthorityx1.der && \
-    wget -P /tmp/ https://letsencrypt.org/certs/letsencryptauthorityx2.der && \
-    wget -P /tmp/ https://letsencrypt.org/certs/lets-encrypt-x1-cross-signed.der && \
-    wget -P /tmp/ https://letsencrypt.org/certs/lets-encrypt-x2-cross-signed.der && \
-    wget -P /tmp/ https://letsencrypt.org/certs/lets-encrypt-x3-cross-signed.der && \
-    wget -P /tmp/ https://letsencrypt.org/certs/lets-encrypt-x4-cross-signed.der && \
-    keytool -trustcacerts -keystore $KEYSTORE -storepass changeit -noprompt -importcert -alias isrgrootx1 -file /tmp/letsencryptauthorityx1.der && \
-    keytool -trustcacerts -keystore $KEYSTORE -storepass changeit -noprompt -importcert -alias isrgrootx2 -file /tmp/letsencryptauthorityx2.der && \
-    keytool -trustcacerts -keystore $KEYSTORE -storepass changeit -noprompt -importcert -alias letsencryptauthorityx1 -file /tmp/lets-encrypt-x1-cross-signed.der && \
-    keytool -trustcacerts -keystore $KEYSTORE -storepass changeit -noprompt -importcert -alias letsencryptauthorityx2 -file /tmp/lets-encrypt-x2-cross-signed.der && \
-    keytool -trustcacerts -keystore $KEYSTORE -storepass changeit -noprompt -importcert -alias letsencryptauthorityx3 -file /tmp/lets-encrypt-x3-cross-signed.der && \
-    keytool -trustcacerts -keystore $KEYSTORE -storepass changeit -noprompt -importcert -alias letsencryptauthorityx4 -file /tmp/lets-encrypt-x4-cross-signed.der && \
     # Install atlassian ssl tool
     wget -O /home/${CONTAINER_USER}/SSLPoke.class https://confluence.atlassian.com/kb/files/779355358/779355357/1/1441897666313/SSLPoke.class && \
     # Container user permissions

@@ -9,11 +9,11 @@ dependencies:
   override:
     - docker version
     - docker info
-    - docker build -t blacklabelops/bitbucket .
+    - docker build -t asos/bitbucket .
 
 test:
   override:
-    - docker run -d -p 8100:7990 --name="bitbucket" blacklabelops/bitbucket
+    - docker run -d -p 8100:7990 --name="bitbucket" asos/bitbucket
     - sleep 60
     - docker logs bitbucket
     - curl --retry 10 --retry-delay 10 -v http://localhost:8100/
